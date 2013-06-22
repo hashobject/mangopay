@@ -1,6 +1,7 @@
 (ns mangopay.auth
   (:require [clojure.data.codec.base64 :as b64]
-            [clj-http.client :as client]))
+            [clj-http.client :as client]
+            [cheshire.core :as json]))
 
 
 (java.security.Security/addProvider
@@ -40,35 +41,42 @@
 (defn api-call-url [partnet-id ts]
   (str "http://api-preprod.leetchi.com" (api-call-path partnet-id ts)))
 
-(defn url [method partner-id ts]
+(defn url [method partner-id ts data]
   (str method
        "|"
        (api-call-path partner-id ts)
-       "|{user :{Tag :1}}|"))
+       "|"
+       data
+       "|"))
 
 
-(defn test-url [ts]
-  (url "POST" "communist" ts))
+(defn sign-url [method partner-id ts data]
+  (sign (.getBytes (url "POST" "communist" ts data)) (.getPrivate rsa-keys)))
 
 
+(defn signature [method partner-id ts data]
+  (String. (clojure.data.codec.base64/encode (sign-url method partner-id ts data)) "UTF-8"))
 
-(defn sign-test-url [ts]
-  (sign (.getBytes (test-url ts)) (.getPrivate rsa-keys)))
-
-
-(defn signature [ts]
-  (String. (clojure.data.codec.base64/encode (sign-test-url ts)) "UTF-8"))
-
-(signature (timestamp))
+;(signature (timestamp))
 
 
-(let [ts (timestamp)
+(let [data {"FirstName" "Mark",
+            "LastName" "Zuckerberg",
+            "Email" "mark@leetchi.com",
+            "Nationality" "FR",
+            "Birthday" 1300186358,
+            "PersonType" "NATURAL_PERSON",
+            "Tag" "custom information from the app"}
+      json (json/generate-string data)
+      ts (timestamp)
       url (api-call-url "communist" ts)
-      signature (signature ts)]
-  (client/post url
-               {:body "{user :{Tag :1}}"
+      signature (signature "POST" "communist" ts json)
+      resp  (client/post url
+               {:body json
+                :content-type :json
                 :headers {
-                          "X-Leetchi-Signature" signature}}))
+                          "X-Leetchi-Signature" signature}})]
+ (json/parse-string (:body resp)))
 
 
 
