@@ -5,11 +5,6 @@
             [cheshire.core :as json]))
 
 
-
-(defn timestamp []
-  (.getTime (new java.util.Date)))
-
-
 (defn api-call-path [partner-id ts]
   (str "/v1/partner/"
        partner-id
@@ -17,44 +12,44 @@
        ts))
 
 
-(defn api-call-url [partnet-id ts]
-  (str "http://api-preprod.leetchi.com" (api-call-path partnet-id ts)))
-
-(defn url [method partner-id ts data]
+(defn- string-to-sign
+  ([method url-path]
   (str method
        "|"
-       (api-call-path partner-id ts)
+       url-path
+       "|"))
+  ([method url-path data]
+  (str method
+       "|"
+       url-path
        "|"
        data
-       "|"))
+       "|")))
+
+(defn- sign-string
+  ([rsa-key-path method url-path]
+    (signer/sign
+     (string-to-sign method url-path)
+     rsa-key-path
+     "SHA1withRSA"))
+  ([rsa-key-path method url-path data]
+    (signer/sign
+     (string-to-sign method url-path data)
+     rsa-key-path
+     "SHA1withRSA")))
 
 
-(defn sign-url [method partner-id ts data]
-  (signer/sign (url "POST" "communist" ts data) "/Users/podviaznikov/.ssh/mangopay_rsa" "SHA1withRSA"))
-
-
-(defn signature [method partner-id ts data]
-  (String. (clojure.data.codec.base64/encode (sign-url method partner-id ts data)) "UTF-8"))
-
-
-(let [data {"FirstName" "Mark",
-            "LastName" "Zuckerberg",
-            "Email" "mark@leetchi.com",
-            "Nationality" "FR",
-            "Birthday" 1300186358,
-            "PersonType" "NATURAL_PERSON",
-            "Tag" "custom information from the app"}
-      json (json/generate-string data)
-      ts (timestamp)
-      url (api-call-url "communist" ts)
-      signature (signature "POST" "communist" ts json)
-      resp  (client/post url
-               {:body json
-                :content-type :json
-                :headers {
-                          "X-Leetchi-Signature" signature}})]
- (json/parse-string (:body resp)))
-
+(defn signature
+  ([rsa-key-path method url-path]
+  (String.
+   (clojure.data.codec.base64/encode
+      (sign-string rsa-key-path method url-path))
+   "UTF-8"))
+  ([rsa-key-path method url-path data]
+  (String.
+   (clojure.data.codec.base64/encode
+      (sign-string rsa-key-path method url-path data))
+   "UTF-8")))
 
 
 
