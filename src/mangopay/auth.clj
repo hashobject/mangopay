@@ -5,10 +5,12 @@
             [cheshire.core :as json]))
 
 
-(defn api-call-path [partner-id ts]
+(defn api-call-path [partner-id route ts]
   (str "/v1/partner/"
        partner-id
-       "/users/?ts="
+       "/"
+       route
+       "/?ts="
        ts))
 
 
