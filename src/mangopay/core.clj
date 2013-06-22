@@ -25,6 +25,19 @@
     output))
 
 
+(defn modify [route input id options]
+  (let [json (json/generate-string input)
+        ts (timestamp)
+        url-path (auth/api-call-path (:partner-id options) route ts id)
+        url (api-call-url (:host options) url-path)
+        signature (auth/signature (:rsa-key-path options) "PUT" url-path json)
+        resp (client/put url
+               {:body json
+                :content-type :json
+                :headers {"X-Leetchi-Signature" signature}})
+        output (json/parse-string (:body resp))]
+    output))
+
 (defn fetch [route id options]
   (let [ts (timestamp)
         url-path (auth/api-call-path (:partner-id options) route ts id)
@@ -48,6 +61,15 @@
          :host "http://api-preprod.leetchi.com"
          :rsa-key-path "/Users/podviaznikov/.ssh/mangopay_rsa"})
 
-;(fetch "users" 337225 {:partner-id "communist"
-;         :host "http://api-preprod.leetchi.com"
-;         :rsa-key-path "/Users/podviaznikov/.ssh/mangopay_rsa"})
+
+(modify "users"
+        {"FirstName" "Markus"
+         "Tag" "custom information from the app"}
+        337243
+        {:partner-id "communist"
+         :host "http://api-preprod.leetchi.com"
+         :rsa-key-path "/Users/podviaznikov/.ssh/mangopay_rsa"})
+
+(fetch "users" 337243 {:partner-id "communist"
+         :host "http://api-preprod.leetchi.com"
+         :rsa-key-path "/Users/podviaznikov/.ssh/mangopay_rsa"})
