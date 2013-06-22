@@ -5,14 +5,23 @@
             [cheshire.core :as json]))
 
 
-(defn api-call-path [partner-id route ts]
+(defn api-call-path
+  ([partner-id route ts]
   (str "/v1/partner/"
        partner-id
        "/"
        route
        "/?ts="
        ts))
-
+  ([partner-id route ts id]
+  (str "/v1/partner/"
+       partner-id
+       "/"
+       route
+       "/"
+       id
+       "?ts="
+       ts)))
 
 (defn- string-to-sign
   ([method url-path]
