@@ -25,7 +25,7 @@
     output))
 
 
-(defn modify [route input id options]
+(defn modify [route id input options]
   (let [json (json/generate-string input)
         ts (timestamp)
         url-path (auth/api-call-path (:partner-id options) route ts id)
@@ -64,9 +64,9 @@
 
 
   (modify "users"
+           337243
           {"FirstName" "Markus"
            "Tag" "custom information from the app"}
-          337243
           {:partner-id "communist"
            :host "http://api-preprod.leetchi.com"
            :rsa-key-path "/Users/podviaznikov/.ssh/mangopay_rsa"})
