@@ -6,4 +6,5 @@
             :url "http://www.eclipse.org/legal/epl-v10.html"}
   :dependencies [[org.clojure/clojure "1.5.1"]
                  [org.clojure/data.codec "0.1.0"]
-                 [org.bouncycastle/bctsp-jdk16 "1.46"]])
+                 [org.bouncycastle/bctsp-jdk16 "1.46"]
+                 [clj-http "0.7.2"]])
