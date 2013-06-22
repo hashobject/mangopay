@@ -49,27 +49,28 @@
         output (json/parse-string (:body resp))]
     output))
 
-(create "users"
-        {"FirstName" "Mark",
-         "LastName" "Zuckerberg",
-         "Email" "mark@leetchi.com",
-         "Nationality" "FR",
-         "Birthday" 1300186358,
-         "PersonType" :NATURAL_PERSON,
-         "Tag" "custom information from the app"}
-        {:partner-id "communist"
-         :host "http://api-preprod.leetchi.com"
-         :rsa-key-path "/Users/podviaznikov/.ssh/mangopay_rsa"})
+(comment
+  (create "users"
+          {"FirstName" "Mark",
+           "LastName" "Zuckerberg",
+           "Email" "mark@leetchi.com",
+           "Nationality" "FR",
+           "Birthday" 1300186358,
+           "PersonType" :NATURAL_PERSON,
+           "Tag" "custom information from the app"}
+          {:partner-id "communist"
+           :host "http://api-preprod.leetchi.com"
+           :rsa-key-path "/Users/podviaznikov/.ssh/mangopay_rsa"})
 
 
-(modify "users"
-        {"FirstName" "Markus"
-         "Tag" "custom information from the app"}
-        337243
-        {:partner-id "communist"
-         :host "http://api-preprod.leetchi.com"
-         :rsa-key-path "/Users/podviaznikov/.ssh/mangopay_rsa"})
+  (modify "users"
+          {"FirstName" "Markus"
+           "Tag" "custom information from the app"}
+          337243
+          {:partner-id "communist"
+           :host "http://api-preprod.leetchi.com"
+           :rsa-key-path "/Users/podviaznikov/.ssh/mangopay_rsa"})
 
-(fetch "users" 337243 {:partner-id "communist"
-         :host "http://api-preprod.leetchi.com"
-         :rsa-key-path "/Users/podviaznikov/.ssh/mangopay_rsa"})
+  (fetch "users" 337243 {:partner-id "communist"
+           :host "http://api-preprod.leetchi.com"
+           :rsa-key-path "/Users/podviaznikov/.ssh/mangopay_rsa"}))

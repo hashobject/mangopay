@@ -3,6 +3,47 @@
 A Clojure library for interaction with [MangoPay REST API](http://www.mangopay.com/overview/).
 
 
+## Install
+
+```
+[mangopay "0.1.0-SNAPSHOT"]
+```
+
+## Usage
+
+
+```
+user=> (use 'mangopay.core)
+null
+user=> (create "users"
+        {"FirstName" "Mark",
+         "LastName" "Zuckerberg",
+         "Email" "mark@leetchi.com",
+         "Nationality" "FR",
+         "Birthday" 1300186358,
+         "PersonType" :NATURAL_PERSON,
+         "Tag" "custom information from the app"}
+        {:partner-id "communist"
+         :host "http://api-preprod.leetchi.com"
+         :rsa-key-path "/Users/podviaznikov/.ssh/mangopay_rsa"})
+{"LastName" "Zuckerberg", "IP" nil, "CreationDate" 1371931163, "IsStrongAuthenticated" false, "PersonType" "NATURAL_PERSON", "PersonalWalletAmount" 0, "UpdateDate" 1371931163, "CanRegisterMeanOfPayment" false, "Tag" "custom information from the app", "ID" 337252, "FirstName" "Mark", "Password" "XGB5hY9PAWnWh3ZLi6OwKY0t1Fg6bM", "Nationality" "FR", "Email" "mark@leetchi.com", "HasRegisteredMeansOfPayment" false, "Birthday" 1300186358}
+
+user=> (fetch "users" 337243 {:partner-id "communist"
+         :host "http://api-preprod.leetchi.com"
+         :rsa-key-path "/Users/podviaznikov/.ssh/mangopay_rsa"})
+{"LastName" "Zuckerberg", "IP" nil, "CreationDate" 1371931163, "IsStrongAuthenticated" false, "PersonType" "NATURAL_PERSON", "PersonalWalletAmount" 0, "UpdateDate" 1371931163, "CanRegisterMeanOfPayment" false, "Tag" "custom information from the app", "ID" 337252, "FirstName" "Mark", "Password" "XGB5hY9PAWnWh3ZLi6OwKY0t1Fg6bM", "Nationality" "FR", "Email" "mark@leetchi.com", "HasRegisteredMeansOfPayment" false, "Birthday" 1300186358}
+
+user=> (modify "users"
+        {"FirstName" "Markus"
+         "Tag" "custom information from the app"}
+        337243
+        {:partner-id "communist"
+         :host "http://api-preprod.leetchi.com"
+         :rsa-key-path "/Users/podviaznikov/.ssh/mangopay_rsa"})
+{"LastName" "Zuckerberg", "IP" nil, "CreationDate" 1371930963, "IsStrongAuthenticated" false, "PersonType" "NATURAL_PERSON", "PersonalWalletAmount" 0, "UpdateDate" 1371931136, "CanRegisterMeanOfPayment" false, "Tag" "custom information from the app", "ID" 337243, "FirstName" "Markus", "Password" "bjA0SDwRphhEinYPv8FFLx6qEP5xPU", "Nationality" "FR", "Email" "mark@leetchi.com", "HasRegisteredMeansOfPayment" false, "Birthday" 1300186358}
+```
+
+
 ## License
 
 Copyright © 2013 HashObject Ltd (team@hashobject.com).
