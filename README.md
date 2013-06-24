@@ -65,7 +65,7 @@ There are 3 methods:
 Options has 3 properties:
 
   * :partner-id - your id youshould receive from MangoPay on registration.
-  * :host - API endpoint. 'http://api-preprod.leetchi.com' for testing and 'https://api.leetchi.com/v1/partner/ for production'.
+  * :host - API endpoint. http://api-preprod.leetchi.com for testing and https://api.leetchi.com/v1/partner/ for production.
   * :rsa-key-path - path to your private RSA key. Correspoding public key should be submitted to MangoPay on registration.
 
 
