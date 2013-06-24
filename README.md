@@ -13,10 +13,10 @@ A Clojure library for interaction with [MangoPay REST API](http://www.mangopay.c
 
 Below is an example how create, fetch and modify user.
 
-All other intereactions with MangoPay can be done in absolutely the same way.
+All other interactions with MangoPay can be done in absolutely the same way.
 
 MangoPay API is very consistent. You need just change 1 parameter of each method. So e.x.
-instead of `users` just use `wallets` or `withdrawals`.
+instead of 'users' just use 'wallets' or 'withdrawals'.
 
 For details about what properties are required for each entity creation please visit
 an official API [documentation](http://www.mangopay.com/api-references/).
@@ -64,8 +64,8 @@ There are 3 methods:
 
 Options has 3 properties:
 
-  * :partner-id - your id youshould receive from MangoPay on registration
-  * :host - API endpoint. http://api-preprod.leetchi.com for testing and https://api.leetchi.com/v1/partner/ for production
+  * :partner-id - your id youshould receive from MangoPay on registration.
+  * :host - API endpoint. 'http://api-preprod.leetchi.com' for testing and 'https://api.leetchi.com/v1/partner/ for production'.
   * :rsa-key-path - path to your private RSA key. Correspoding public key should be submitted to MangoPay on registration.
 
 
