@@ -15,11 +15,13 @@
   "Make a generic POST HTTP request"
   [url signature body]
   (try
-    (client/post url
-      {:accept :json
-       :content-type :json
-       :body body
-       :headers {"X-Leetchi-Signature" signature}})
+    (let [resp (client/post url
+                {:accept :json
+                 :content-type :json
+                 :body body
+                 :headers {"X-Leetchi-Signature" signature}})
+          output (json/parse-string (:body resp))]
+      output)
   (catch Exception e
      (let [exception-info (.getData e)]
      (select-keys
@@ -32,11 +34,13 @@
   "Make a generic PUT HTTP request"
   [url signature body]
   (try
-    (client/put url
-      {:accept :json
-       :content-type :json
-       :body body
-       :headers {"X-Leetchi-Signature" signature}})
+    (let [resp (client/put url
+                {:accept :json
+                 :content-type :json
+                 :body body
+                 :headers {"X-Leetchi-Signature" signature}})
+          output (json/parse-string (:body resp))]
+      output)
   (catch Exception e
      (let [exception-info (.getData e)]
      (select-keys
@@ -49,10 +53,12 @@
   "Make a generic GET HTTP request"
   [url signature]
   (try
-    (client/get url
-      {:accept :json
-       :content-type :json
-       :headers {"X-Leetchi-Signature" signature}})
+    (let [resp (client/get url
+                  {:accept :json
+                   :content-type :json
+                   :headers {"X-Leetchi-Signature" signature}})
+          output (json/parse-string (:body resp))]
+      output)
   (catch Exception e
      (let [exception-info (.getData e)]
      (select-keys
@@ -69,9 +75,8 @@
         url-path (auth/api-call-path (:partner-id options) route ts)
         url (api-call-url (:host options) url-path)
         signature (auth/signature (:rsa-key-path options) "POST" url-path json)
-        resp (post-request url signature json)
-        output (json/parse-string (:body resp))]
-    output))
+        resp (post-request url signature json)]
+    resp))
 
 
 (defn modify [route id input options]
@@ -80,42 +85,13 @@
         url-path (auth/api-call-path (:partner-id options) route ts id)
         url (api-call-url (:host options) url-path)
         signature (auth/signature (:rsa-key-path options) "PUT" url-path json)
-        resp (put-request url signature json)
-        output (json/parse-string (:body resp))]
-    (println "resp" resp)
-    output))
+        resp (put-request url signature json)]
+    resp))
 
 (defn fetch [route id options]
   (let [ts (timestamp)
         url-path (auth/api-call-path (:partner-id options) route ts id)
         url (api-call-url (:host options) url-path)
         signature (auth/signature (:rsa-key-path options) "GET" url-path)
-        resp (get-request url signature)
-        output (json/parse-string (:body resp))]
-    output))
-
-(comment
-  (create "users"
-          {"FirstName" "Mark",
-           "LastName" "Zuckerberg",
-           "Email" "mark@leetchi.com",
-           "Nationality" "FR",
-           "Birthday" 1300186358,
-           "PersonType" :NATURAL_PERSON,
-           "Tag" "custom information from the app"}
-          {:partner-id "communist"
-           :host "http://api-preprod.leetchi.com"
-           :rsa-key-path "/Users/podviaznikov/.ssh/mangopay_rsa"})
-
-
-  (modify "users"
-           337243
-          {"FirstName" "Markus"
-           "Tag" "custom information from the app"}
-          {:partner-id "communist"
-           :host "http://api-preprod.leetchi.com"
-           :rsa-key-path "/Users/podviaznikov/.ssh/mangopay_rsa"})
-
-  (fetch "users" 337243 {:partner-id "communist"
-           :host "http://api-preprod.leetchi.com"
-           :rsa-key-path "/Users/podviaznikov/.ssh/mangopay_rsa"}))
+        resp (get-request url signature)]
+    resp))

@@ -9,6 +9,7 @@
    :rsa-key-path "/Users/podviaznikov/.ssh/mangopay_rsa"})
 
 
+
 (comment
 (deftest invalid-route
   (testing "invalid route"
@@ -118,6 +119,12 @@
         (is (< 0 (get fetch-resp "UpdateDate")))
         (is (< (get create-resp "UpdateDate") (get fetch-resp "UpdateDate")))
         (is (< 0 (count (get fetch-resp "Password"))))))
+
+
+      (testing "fetch fake user"
+        (let [fetch-resp (fetch "users"
+                                 213213213213
+                                 api-options)]))
 
       )
 
