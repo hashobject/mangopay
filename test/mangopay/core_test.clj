@@ -2,6 +2,12 @@
   (:use clojure.test
         mangopay.core))
 
+
+(def api-options
+  {:partner-id "communist"
+   :host "http://api-preprod.leetchi.com"
+   :rsa-key-path "/Users/podviaznikov/.ssh/mangopay_rsa"})
+
 (deftest user-test
   (testing "user"
     (let [create-resp (create "users"
@@ -12,9 +18,7 @@
                                "Birthday" 1300186358,
                                "PersonType" :NATURAL_PERSON,
                                "Tag" "INTERNAL_ID"}
-                              {:partner-id "communist"
-                               :host "http://api-preprod.leetchi.com"
-                               :rsa-key-path "/Users/podviaznikov/.ssh/mangopay_rsa"})]
+                              api-options)]
       (testing "create"
         (is (= "Mark" (get create-resp "FirstName")))
         (is (= "Zuckerberg" (get create-resp "LastName")))
@@ -37,9 +41,7 @@
       (testing "fetch"
         (let [fetch-resp (fetch "users"
                                  (get create-resp "ID")
-                                 {:partner-id "communist"
-                                  :host "http://api-preprod.leetchi.com"
-                                  :rsa-key-path "/Users/podviaznikov/.ssh/mangopay_rsa"})]
+                                 api-options)]
         (is (= "Mark" (get fetch-resp "FirstName")))
         (is (= "Zuckerberg" (get fetch-resp "LastName")))
         (is (= "mark@leetchi.com" (get fetch-resp "Email")))
@@ -63,9 +65,7 @@
         (let [modify-resp (modify "users"
                                  (get create-resp "ID")
                                  {"FirstName" "Peter"}
-                                 {:partner-id "communist"
-                                  :host "http://api-preprod.leetchi.com"
-                                  :rsa-key-path "/Users/podviaznikov/.ssh/mangopay_rsa"})]
+                                 api-options)]
         (is (= "Peter" (get modify-resp "FirstName")))
         (is (= "Zuckerberg" (get modify-resp "LastName")))
         (is (= "mark@leetchi.com" (get modify-resp "Email")))
@@ -89,9 +89,7 @@
       (testing "fetch modified"
         (let [fetch-resp (fetch "users"
                                  (get create-resp "ID")
-                                 {:partner-id "communist"
-                                  :host "http://api-preprod.leetchi.com"
-                                  :rsa-key-path "/Users/podviaznikov/.ssh/mangopay_rsa"})]
+                                 api-options)]
         (is (= "Peter" (get fetch-resp "FirstName")))
         (is (= "Zuckerberg" (get fetch-resp "LastName")))
         (is (= "mark@leetchi.com" (get fetch-resp "Email")))
