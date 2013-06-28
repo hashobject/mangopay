@@ -8,6 +8,15 @@
    :host "http://api-preprod.leetchi.com"
    :rsa-key-path "/Users/podviaznikov/.ssh/mangopay_rsa"})
 
+
+(comment
+(deftest invalid-route
+  (testing "invalid route"
+    (let [resp (fetch "invalid-route" 1 api-options)]
+      (println resp)
+      (is (= "2" resp))))))
+
+
 (deftest user-test
   (testing "user"
     (let [create-resp (create "users"
@@ -113,3 +122,5 @@
       )
 
     ))
+
+
