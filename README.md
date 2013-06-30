@@ -5,7 +5,7 @@ A Clojure library for interaction with [MangoPay REST API](http://www.mangopay.c
 
 ## Install
 
-```shell
+```
 [mangopay "0.1.0-SNAPSHOT"]
 ```
 
@@ -22,7 +22,7 @@ For details about what properties are required for each entity creation please v
 an official API [documentation](http://www.mangopay.com/api-references/).
 
 
-```shell
+```
 user=> (use 'mangopay.core)
 null
 user=> (create "users"
