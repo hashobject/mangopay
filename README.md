@@ -21,10 +21,13 @@ instead of 'users' just use 'wallets' or 'withdrawals'.
 For details about what properties are required for each entity creation please visit
 an official API [documentation](http://www.mangopay.com/api-references/).
 
-
 ```
 user=> (use 'mangopay.core)
 null
+```
+
+
+```
 user=> (create "users"
         {"FirstName" "Mark",
          "LastName" "Zuckerberg",
@@ -37,12 +40,15 @@ user=> (create "users"
          :host "http://api-preprod.leetchi.com"
          :rsa-key-path "/Users/podviaznikov/.ssh/mangopay_rsa"})
 {"LastName" "Zuckerberg", "IP" nil, "CreationDate" 1371931163, "IsStrongAuthenticated" false, "PersonType" "NATURAL_PERSON", "PersonalWalletAmount" 0, "UpdateDate" 1371931163, "CanRegisterMeanOfPayment" false, "Tag" "custom information from the app", "ID" 337252, "FirstName" "Mark", "Password" "XGB5hY9PAWnWh3ZLi6OwKY0t1Fg6bM", "Nationality" "FR", "Email" "mark@leetchi.com", "HasRegisteredMeansOfPayment" false, "Birthday" 1300186358}
+```
 
+```
 user=> (fetch "users" 337243 {:partner-id "communist"
          :host "http://api-preprod.leetchi.com"
          :rsa-key-path "/Users/podviaznikov/.ssh/mangopay_rsa"})
 {"LastName" "Zuckerberg", "IP" nil, "CreationDate" 1371931163, "IsStrongAuthenticated" false, "PersonType" "NATURAL_PERSON", "PersonalWalletAmount" 0, "UpdateDate" 1371931163, "CanRegisterMeanOfPayment" false, "Tag" "custom information from the app", "ID" 337252, "FirstName" "Mark", "Password" "XGB5hY9PAWnWh3ZLi6OwKY0t1Fg6bM", "Nationality" "FR", "Email" "mark@leetchi.com", "HasRegisteredMeansOfPayment" false, "Birthday" 1300186358}
 
+```
 user=> (modify "users"
          337243
         {"FirstName" "Markus"
