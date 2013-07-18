@@ -1,6 +1,6 @@
 # mangopay
 
-A Clojure library for interaction with [MangoPay REST API](http://www.mangopay.com/overview/).
+A Clojure library for interaction with [Mangopay REST API](http://www.mangopay.com/overview/).
 
 
 ## Install
@@ -13,16 +13,16 @@ A Clojure library for interaction with [MangoPay REST API](http://www.mangopay.c
 
 Below is an example how create, fetch and modify user.
 
-All other interactions with MangoPay can be done in absolutely the same way.
+All other interactions with Mangopay can be done in absolutely the same way.
 
-MangoPay API is very consistent. You need just change 1 parameter of each method. So e.x.
+Mangopay API is very consistent. You need just change 1 parameter of each method. So e.x.
 instead of 'users' just use 'wallets' or 'withdrawals'.
 
 For details about what properties are required for each entity creation please visit
 an official API [documentation](http://www.mangopay.com/api-references/).
 
 
-To include MangoPay library:
+To include Mangopay library:
 
 ```
 user=> (use 'mangopay.core)

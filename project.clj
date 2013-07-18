@@ -1,5 +1,5 @@
 (defproject mangopay "0.1.0-SNAPSHOT"
-  :description "A Clojure library for interaction with MangoPay REST API."
+  :description "A Clojure library for interaction with Mangopay REST API."
   :signing {:gpg-key "Hashobject Ltd <team@hashobject.com>"}
   :url "https://github.com/hashobject/mangopay"
   :license {:name "Eclipse Public License"
