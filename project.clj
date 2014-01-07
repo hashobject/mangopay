@@ -7,5 +7,5 @@
   :dependencies [[org.clojure/clojure "1.5.1"]
                  [org.clojure/data.codec "0.1.0"]
                  [rsa-signer "0.1.0"]
-                 [clj-http "0.7.2"]
-                 [cheshire "5.0.1"]])
+                 [clj-http "0.7.8"]
+                 [cheshire "5.3.0"]])
