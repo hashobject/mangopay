@@ -8,4 +8,4 @@
                  [org.clojure/data.codec "0.1.0"]
                  [rsa-signer "0.1.0"]
                  [clj-http "0.7.8"]
-                 [cheshire "5.3.0"]])
+                 [cheshire "5.3.1"]])
