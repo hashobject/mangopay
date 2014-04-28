@@ -2,7 +2,7 @@
 
 A Clojure library for interaction with [Mangopay REST API](http://www.mangopay.com/overview/).
 
-[![Dependencies Status](https://jarkeeper.com/hashobject/mangopay/status.png)](http://jarkeeper.com/hashobject/mangopay)
+[![Dependencies Status](https://jarkeeper.com/hashobject/mangopay/status.png)](https://jarkeeper.com/hashobject/mangopay)
 
 ## Install
 
